@@ -23,20 +23,20 @@ Obj load(char *file)
         if (flag == EOF)
             break;
         else if (strcmp(aux, "v") == 0)
-            addv(p, model);
+            addv(model, p);
         else if (strcmp(aux, "vn") == 0)
-            addvn(p, model);
+            addvn(model, p);
         else if (strcmp(aux, "f") == 0)
-            addf(p, model);
+            addf(model, p);
     }
     
     fclose(p);
     return model;
 }
 
-void unload(Obj model);
+void unload(Obj obj);
 
-void addv(FILE *p, Obj obj)
+void addv(Obj obj, FILE *p)
 {
     float xtemp, ytemp, ztemp;
     Obj_v vertex, aux;
@@ -60,7 +60,7 @@ void addv(FILE *p, Obj obj)
     }
 }
 
-void addvn(FILE *p, Obj obj)
+void addvn(Obj obj, FILE *p)
 {
     float xtemp, ytemp, ztemp;
     Obj_vn normal, aux;
@@ -68,7 +68,7 @@ void addvn(FILE *p, Obj obj)
     obj->num_vn++;
     
     fscanf(p, "%f %f %f\n", &xtemp, &ytemp, &ztemp);
-    normal->index = obj->num_v;
+    normal->index = obj->num_vn;
     normal->vnx = xtemp;
     normal->vny = ytemp;
     normal->vnz = ztemp;
@@ -84,20 +84,18 @@ void addvn(FILE *p, Obj obj)
     }
 }
 
-void addf(FILE *p, Obj obj)
+void addf(Obj obj, FILE *p)
 {
-    unsigned int vtemp[4], ttemp[4], ntemp[4];
+    unsigned int vtemp[4], ntemp[4];
     Obj_f face, aux;
     face = malloc(sizeof(struct Obj_f));
     obj->num_f++;
     
     for (int i = 0; i < 4; i++)
-        fscanf(p, "%d/%d/%d", &vtemp[i], &ttemp[i], &ntemp[i]);
+        fscanf(p, "%d//%d", &vtemp[i], &ntemp[i]);
     face->index = obj->num_f;
     for (int i = 0; i < 4; i++)
         face->vertices[i] = vtemp[i];
-    for (int i = 0; i < 4; i++)
-        face->textures[i] = ttemp[i];
     for (int i = 0; i < 4; i++)
         face->normals[i] = ntemp[i];
     face->next = NULL;
@@ -111,3 +109,41 @@ void addf(FILE *p, Obj obj)
         aux->next = face;
     }
 }
+
+void listv(Obj obj)
+{
+    printf("Teste dos vértices-----\n");
+    Obj_v aux = obj->vertices;
+    for (int i = 0; i < obj->num_v; i++) {
+        printf("id do vértice: %d\n", aux->index);
+        printf("x: %f\t| y: %f\t| z: %f\n", aux->vx, aux->vy, aux->vz);
+    aux = aux->next;
+    }
+}
+
+void listvn(Obj obj)
+{
+    printf("Teste das vn-------\n");
+    Obj_vn aux = obj->normals;
+    for (int i = 0; i < obj->num_vn; i++) {
+        printf("id da normal: %d\n", aux->index);
+        printf("x: %f\t| y: %f\t| z: %f\n", aux->vnx, aux->vny, aux->vnz);
+    aux = aux->next;
+    }
+}
+
+void listf(Obj obj)
+{
+    printf("Teste das faces-------\n");
+    Obj_f aux = obj->faces;
+    for (int i = 0; i < obj->num_f; i++) {
+        printf("id da face: %d\n", aux->index);
+        for (int j = 0; j < 4; j++)
+            printf("v: %d\t| vn: %d\n", aux->vertices[j], aux->normals[j]);
+    aux = aux->next;
+    }
+}
+
+Obj_v findv(Obj obj, unsigned int index);
+
+Obj_vn findvn(Obj obj, unsigned int index);

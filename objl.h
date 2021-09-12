@@ -36,13 +36,17 @@ struct Obj_vn {
 struct Obj_f {
     unsigned int index;
     unsigned int vertices[4];
-    unsigned int textures[4];
     unsigned int normals[4];
     Obj_f next;
 };
 
 Obj load(char *file);
-void unload(Obj model);
-void addv(FILE *p, Obj obj);
-void addvn(FILE *p, Obj obj);
-void addf(FILE *p, Obj obj);
+void unload(Obj obj);
+void addv(Obj obj, FILE *p);
+void addvn(Obj obj, FILE *p);
+void addf(Obj obj, FILE *p);
+void listv(Obj obj);
+void listvn(Obj obj);
+void listf(Obj obj);
+Obj_v findv(Obj obj, unsigned int index);
+Obj_vn findvn(Obj obj, unsigned int index);
