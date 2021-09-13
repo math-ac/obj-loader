@@ -10,6 +10,8 @@
 
 #include "objl.h"
 
+Obj model;
+
 void init()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -34,9 +36,12 @@ void render(Obj obj)
         for (int j = 0; j < 4; j++) {
             vertice = findv(obj, face->vertices[j]);
             float vet_v[] = {vertice->vx, vertice->vy, vertice->vz};
+            glColor3f(1, 0, 0);
             glBegin(GL_QUADS);
             glVertex3fv(vet_v);
             glEnd();
+            printf("face id: %d\tv id: %d\n", face->index, vertice->index);
+            printf("x: %f\ty: %f\tz: %f\n", vertice->vx, vertice->vy, vertice->vz);
         }
         face = face->next;
     }
@@ -46,7 +51,7 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0, 0, 0, 1);
-    render();
+    render(model);
 }
 
 int main(int argc, char *argv[])
@@ -56,7 +61,6 @@ int main(int argc, char *argv[])
         return 1;
     }
     
-    Obj model;
     model = load(argv[1]);
     
     glutInit(&argc, argv);
