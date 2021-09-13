@@ -144,6 +144,42 @@ void listf(Obj obj)
     }
 }
 
-Obj_v findv(Obj obj, unsigned int index);
+Obj_v findv(Obj obj, unsigned int n)
+{
+    Obj_v aux;
+    aux = obj->vertices;
+    for (int i = 0; i < obj->num_v; i++) {
+        if (aux->index == n)
+            return aux;
+        aux = aux->next;
+    }
+    
+    return NULL;
+}
 
-Obj_vn findvn(Obj obj, unsigned int index);
+Obj_vn findvn(Obj obj, unsigned int n)
+{
+    Obj_vn aux;
+    aux = obj->normals;
+    for (int i = 0; i < obj->num_vn; i++) {
+        if (aux->index == n)
+            return aux;
+        aux = aux->next;
+    }
+    
+    return NULL;
+}
+
+Obj_f findf(Obj obj, unsigned int n)
+{
+    Obj_f aux;
+    aux = obj->faces;
+    for (int i = 0; i < obj->num_vn; i++) {
+        if (aux->index == n)
+            return aux;
+        aux = aux->next;
+    }
+    
+    return NULL;
+}
+

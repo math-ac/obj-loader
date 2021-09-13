@@ -41,12 +41,13 @@ struct Obj_f {
 };
 
 Obj load(char *file);
-void unload(Obj obj);
+void unload(Obj obj);//TODO
 void addv(Obj obj, FILE *p);
 void addvn(Obj obj, FILE *p);
 void addf(Obj obj, FILE *p);
 void listv(Obj obj);
 void listvn(Obj obj);
 void listf(Obj obj);
-Obj_v findv(Obj obj, unsigned int index);
-Obj_vn findvn(Obj obj, unsigned int index);
+Obj_v findv(Obj obj, unsigned int n);
+Obj_vn findvn(Obj obj, unsigned int n);
+Obj_f findf(Obj obj, unsigned int n);

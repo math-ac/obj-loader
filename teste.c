@@ -15,11 +15,9 @@ int main(int argc, char *argv[])
     
     system("clear");
     
-    printf("Quantidade de vértices: %d\n", model->num_v);
-    printf("Quantidade de normais: %d\n", model->num_vn);
-    printf("Quantidade de faces: %d\n", model->num_f);
+    printf("Number of vertices: %d\n", model->num_v);
+    printf("Number of normals: %d\n", model->num_vn);
+    printf("Number of faces: %d\n", model->num_f);
     
-    listvn(model);
-
     return 0;
 }
