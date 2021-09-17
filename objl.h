@@ -45,6 +45,9 @@ void unload(Obj obj);//TODO
 void addv(Obj obj, FILE *p);
 void addvn(Obj obj, FILE *p);
 void addf(Obj obj, FILE *p);
+void rmv(Obj obj);
+void rmvn(Obj obj);
+void rmf(Obj obj);
 void listv(Obj obj);
 void listvn(Obj obj);
 void listf(Obj obj);

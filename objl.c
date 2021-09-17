@@ -34,7 +34,12 @@ Obj load(char *file)
     return model;
 }
 
-void unload(Obj obj);
+void unload(Obj obj)
+{
+    rmv(obj);
+    rmvn(obj);
+    rmf(obj);
+}
 
 void addv(Obj obj, FILE *p)
 {
@@ -108,6 +113,51 @@ void addf(Obj obj, FILE *p)
             aux = aux->next;
         aux->next = face;
     }
+}
+
+void rmv(Obj obj)
+{
+    Obj_v rm = obj->vertices;
+    Obj_v aux = rm->next;
+    
+    while (rm != NULL) {
+        free(rm);
+        rm = aux;
+        if (aux != NULL)
+            aux = aux->next;
+    }
+    
+    return;
+}
+
+void rmvn(Obj obj)
+{
+    Obj_vn rm = obj->normals;
+    Obj_vn aux = rm->next;
+    
+    while (rm != NULL) {
+        free(rm);
+        rm = aux;
+        if (aux != NULL)
+            aux = aux->next;
+    }
+    
+    return;
+}
+
+void rmf(Obj obj)
+{
+    Obj_f rm = obj->faces;
+    Obj_f aux = rm->next;
+    
+    while (rm != NULL) {
+        free(rm);
+        rm = aux;
+        if (aux != NULL)
+            aux = aux->next;
+    }
+    
+    return;
 }
 
 void listv(Obj obj)
