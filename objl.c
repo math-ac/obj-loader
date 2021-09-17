@@ -38,7 +38,7 @@ void unload(Obj obj);
 
 void addv(Obj obj, FILE *p)
 {
-    float xtemp, ytemp, ztemp;
+    float xtemp = 0., ytemp = 0., ztemp = 0.;
     Obj_v vertex, aux;
     vertex = malloc(sizeof(struct Obj_v));
     obj->num_v++;
@@ -62,7 +62,7 @@ void addv(Obj obj, FILE *p)
 
 void addvn(Obj obj, FILE *p)
 {
-    float xtemp, ytemp, ztemp;
+    float xtemp = 0., ytemp = 0., ztemp = 0.;
     Obj_vn normal, aux;
     normal = malloc(sizeof(struct Obj_vn));
     obj->num_vn++;

@@ -16,7 +16,6 @@ GLfloat xRotated, yRotated, zRotated;
 void init()
 {
     glClearColor(0.0, 0.45, 1.0, 0.0);
-    glViewport(0, 0, 700, 700);
 }
 
 void render()
@@ -33,30 +32,31 @@ void render()
     glRotatef(xRotated,1.0,0.0,0.0);
     glRotatef(yRotated,0.0,1.0,0.0);
     glRotatef(zRotated,0.0,0.0,1.0);
-    glBegin(GL_QUADS);
+
     for (int i = 0; i < model->num_f; i++) {
+        glBegin(GL_QUADS);
+        
         normal = findvn(model, i + 1);
-        float vet_n[] = {normal->vnx, normal->vny, normal->vnz};
-        glNormal3f(normal->vnx, normal->vny, normal->vnz);
+        if (normal != NULL)
+            glNormal3f(normal->vnx, normal->vny, normal->vnz);
         
         v1 = findv(model, face->vertices[0]);
         v2 = findv(model, face->vertices[1]);
         v3 = findv(model, face->vertices[2]);
         v4 = findv(model, face->vertices[3]);
-        /*
-        float r = ((float)i + 0.4) / 7.5;
-        float g = ((float)i + 0.5) / 0.75;
-        float b = ((float)i + 0.1) / 6.9;*/
-        glColor3f(1.0, 0.0, 0.3);
+        
+        glColor3f(0.6, 0.7, 0.2);
         
         glVertex3f(v1->vx, v1->vy, v1->vz);
         glVertex3f(v2->vx, v2->vy, v2->vz);
         glVertex3f(v3->vx, v3->vy, v3->vz);
         glVertex3f(v4->vx, v4->vy, v4->vz);
         
+        glEnd();
+
         face = face->next;
     }
-    glEnd();
+    //glEnd();
     glFlush();
 }
 
@@ -67,7 +67,7 @@ void reshape(int x, int y)
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(150.0,(GLdouble)x /(GLdouble)y, 3.5, 30.0);
+    gluPerspective(50.0,(GLdouble)x /(GLdouble)y, 10.5, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glViewport(0,0,x,y);
 }
@@ -82,7 +82,7 @@ void animation(void)
 int main(int argc, char *argv[])
 {
     if (argc != 2) {
-        printf("Usage: ./load [object file]\n");
+        printf("Usage: ./load <object file>\n");
         return 1;
     }
     
@@ -91,12 +91,13 @@ int main(int argc, char *argv[])
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
     glutInitWindowPosition(100, 100);
-    glutInitWindowSize(700, 700);
+    glutInitWindowSize(500, 500);
     glutCreateWindow(argv[1]);
     init();
     glutDisplayFunc(render);
     glutReshapeFunc(reshape);
     glutIdleFunc(animation);
+    //glutMouseFunc(mouse);
     glutMainLoop();
 
     return 0;
