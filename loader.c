@@ -11,14 +11,14 @@
 #include "objl.h"
 
 Obj model;
-GLfloat xRotated, yRotated, zRotated;
+GLfloat x_rotate, y_rotate, z_rotate;
 
 void init()
 {
     glClearColor(0.0, 0.45, 1.0, 0.0);
 }
 
-void render()
+void display()
 {
     Obj_v v1, v2, v3, v4;
     Obj_vn normal;
@@ -28,10 +28,10 @@ void render()
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(0.0,0.0,-10.5);
-    glRotatef(xRotated,1.0,0.0,0.0);
-    glRotatef(yRotated,0.0,1.0,0.0);
-    glRotatef(zRotated,0.0,0.0,1.0);
+    glTranslatef(0.0, 0.0, -30.5);
+    glRotatef(x_rotate, 1.0, 0.0, 0.0);
+    glRotatef(y_rotate, 0.0, 1.0, 0.0);
+    glRotatef(z_rotate, 0.0, 0.0, 1.0);
 
     for (int i = 0; i < model->num_f; i++) {
         glBegin(GL_QUADS);
@@ -67,16 +67,36 @@ void reshape(int x, int y)
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(50.0,(GLdouble)x /(GLdouble)y, 10.5, 100.0);
+    gluPerspective(50.0, (GLdouble)x /(GLdouble)y, 10.5, 100.0);
     glMatrixMode(GL_MODELVIEW);
-    glViewport(0,0,x,y);
+    glViewport(0, 0, x, y);
 }
 
-void animation(void)
+void keyboard(unsigned char key, int x, int y)
 {
-    yRotated += 0.01;
-    xRotated += 0.02;
-    render();
+    switch (key) {
+    case 'w':
+        x_rotate = ((int)x_rotate + 5) % 360;
+        glutPostRedisplay();
+        break;
+    case 's':
+        x_rotate = ((int)x_rotate - 5) % 360;
+        glutPostRedisplay();
+        break;
+    case 'a':
+        y_rotate = ((int)y_rotate + 5) % 360;
+        glutPostRedisplay();
+        break;
+    case 'd':
+        y_rotate = ((int)y_rotate - 5) % 360;
+        glutPostRedisplay();
+        break;
+    case 'q':
+        exit(0);
+        break;
+    default:
+        break;
+    }
 }
 
 int main(int argc, char *argv[])
@@ -94,9 +114,10 @@ int main(int argc, char *argv[])
     glutInitWindowSize(500, 500);
     glutCreateWindow(argv[1]);
     init();
-    glutDisplayFunc(render);
+    glutDisplayFunc(display);
     glutReshapeFunc(reshape);
-    glutIdleFunc(animation);
+    glutKeyboardFunc(keyboard);
+    //glutIdleFunc(animation);
     //glutMouseFunc(mouse);
     glutMainLoop();
 
