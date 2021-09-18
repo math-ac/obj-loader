@@ -15,6 +15,9 @@ Obj load(char *file)
     model->vertices = NULL;
     model->normals = NULL;
     model->faces = NULL;
+    model->num_v = 0;
+    model->num_vn = 0;
+    model->num_f = 0;
     
     while(1) {
         char aux[128];
@@ -39,6 +42,7 @@ void unload(Obj obj)
     rmv(obj);
     rmvn(obj);
     rmf(obj);
+    free(obj);
 }
 
 void addv(Obj obj, FILE *p)
