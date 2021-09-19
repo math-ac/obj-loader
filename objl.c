@@ -166,10 +166,10 @@ void rmf(Obj obj)
 
 void listv(Obj obj)
 {
-    printf("Teste dos vértices-----\n");
+    printf("Vertices-----\n");
     Obj_v aux = obj->vertices;
     for (int i = 0; i < obj->num_v; i++) {
-        printf("id do vértice: %d\n", aux->index);
+        printf("Vertex id: %d\n", aux->index);
         printf("x: %f\t| y: %f\t| z: %f\n", aux->vx, aux->vy, aux->vz);
     aux = aux->next;
     }
@@ -177,10 +177,10 @@ void listv(Obj obj)
 
 void listvn(Obj obj)
 {
-    printf("Teste das vn-------\n");
+    printf("Normals-------\n");
     Obj_vn aux = obj->normals;
     for (int i = 0; i < obj->num_vn; i++) {
-        printf("id da normal: %d\n", aux->index);
+        printf("Normal id: %d\n", aux->index);
         printf("x: %f\t| y: %f\t| z: %f\n", aux->vnx, aux->vny, aux->vnz);
     aux = aux->next;
     }
@@ -188,10 +188,10 @@ void listvn(Obj obj)
 
 void listf(Obj obj)
 {
-    printf("Teste das faces-------\n");
+    printf("Faces-------\n");
     Obj_f aux = obj->faces;
     for (int i = 0; i < obj->num_f; i++) {
-        printf("id da face: %d\n", aux->index);
+        printf("Face id: %d\n", aux->index);
         for (int j = 0; j < 4; j++)
             printf("v: %d\t| vn: %d\n", aux->vertices[j], aux->normals[j]);
     aux = aux->next;
