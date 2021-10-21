@@ -5,8 +5,10 @@
  *
  * Move with: a, d, w, s
  * Camera: arrow keys
- * Zoom in: i
- * Zoom out: o
+ * Zoom: mouse scroll or i/o
+ * Grid: g
+ * Random model color: c
+ * Quit: q
  */
 
 #include <GL/freeglut.h>
