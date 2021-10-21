@@ -4,10 +4,12 @@ Simple .obj loader written in C using linked lists
 Compile with
 
 '''
-make 
+
+$ make 
 '''
 And run with
 
 '''
-./tour <object file>
+
+$ ./tour <object file>
 '''
