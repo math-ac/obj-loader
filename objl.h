@@ -41,7 +41,7 @@ struct Obj_f {
 };
 
 Obj load(char *file);
-void unload(Obj obj);//TODO
+void unload(Obj obj);
 void addv(Obj obj, FILE *p);
 void addvn(Obj obj, FILE *p);
 void addf(Obj obj, FILE *p);
